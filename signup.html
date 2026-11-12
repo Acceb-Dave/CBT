@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f5f2e9">
+  <title>Join MindQuest</title>
+  <style>
+    :root {
+      --ink: #183a35;
+      --muted: #66766f;
+      --paper: #f5f2e9;
+      --purple: #d85e41;
+      --line: #e3dfd2;
+    }
+    * { box-sizing: border-box; }
+    body {
+      min-height: 100vh;
+      margin: 0;
+      display: grid;
+      grid-template-rows: auto 1fr auto;
+      color: var(--ink);
+      background:
+        radial-gradient(circle at 8% 12%, rgba(216,94,65,.13), transparent 28%),
+        radial-gradient(circle at 92% 84%, rgba(52,113,91,.12), transparent 30%),
+        var(--paper);
+      font-family: Inter, "Segoe UI", Arial, sans-serif;
+      -webkit-font-smoothing: antialiased;
+    }
+    a { color: inherit; text-decoration: none; }
+    .container { width: min(1120px, calc(100% - 40px)); margin: auto; }
+    header { border-bottom: 1px solid rgba(23,35,56,.07); }
+    .nav { min-height: 76px; display: flex; align-items: center; justify-content: space-between; }
+    .brand { display: inline-flex; align-items: center; gap: 11px; font-size: 1.12rem; font-weight: 650; }
+    .brand-mark {
+      width: 36px; height: 36px; display: grid; place-items: center;
+      border-radius: 12px; color: white; background: linear-gradient(140deg, #d85e41, #f0a36d);
+      box-shadow: 0 7px 16px rgba(216,94,65,.22);
+    }
+    .back-link { color: var(--muted); font-size: .9rem; }
+    .back-link:hover { color: var(--purple); }
+    main { display: grid; place-items: center; padding: 48px 0; }
+    .auth-layout {
+      width: min(940px, calc(100% - 40px));
+      display: grid;
+      grid-template-columns: 1fr .9fr;
+      overflow: hidden;
+      border: 1px solid rgba(23,35,56,.08);
+      border-radius: 26px;
+      background: white;
+      box-shadow: 0 28px 80px rgba(24,58,53,.15);
+    }
+    .welcome {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      min-height: 510px;
+      overflow: hidden;
+      padding: 42px;
+      color: white;
+      background: linear-gradient(145deg, #183a35, #285b4c 62%, #d85e41);
+    }
+    .welcome::after {
+      content: ""; position: absolute; width: 300px; height: 300px; right: -120px; bottom: -130px;
+      border: 1px solid rgba(255,255,255,.22); border-radius: 50%;
+      box-shadow: 0 0 0 35px rgba(255,255,255,.04), 0 0 0 75px rgba(255,255,255,.035);
+    }
+    .welcome-kicker { margin: 0 0 18px; color: #ffd2ad; font-size: .72rem; font-weight: 650; letter-spacing: .16em; text-transform: uppercase; }
+    .welcome h1 { max-width: 380px; margin: 0; font-size: clamp(2.2rem, 4vw, 3.5rem); line-height: 1.04; letter-spacing: -.055em; font-weight: 600; }
+    .welcome-copy { max-width: 340px; margin: 17px 0 0; color: #e0dcf5; font-size: .95rem; line-height: 1.7; }
+    .welcome-foot { position: relative; z-index: 1; margin: 40px 0 0; color: #ffd2ad; font-size: .8rem; }
+    .form-side { padding: 42px clamp(24px, 5vw, 52px); align-self: center; }
+    .form-kicker { margin: 0 0 8px; color: var(--purple); font-size: .72rem; font-weight: 650; letter-spacing: .14em; text-transform: uppercase; }
+    .form-side h2 { margin: 0; font-size: 1.9rem; letter-spacing: -.045em; font-weight: 600; }
+    .form-hint { margin: 9px 0 25px; color: var(--muted); font-size: .9rem; line-height: 1.55; }
+    .fields { display: grid; gap: 15px; }
+    .field { display: grid; gap: 7px; }
+    label { font-size: .82rem; font-weight: 600; }
+    input {
+      width: 100%; min-height: 46px; padding: 0 13px;
+      border: 1px solid #dedde3; border-radius: 10px;
+      background: #fff; color: var(--ink); font: inherit; font-size: .9rem;
+    }
+    input:focus { outline: 3px solid rgba(216,94,65,.16); border-color: #d85e41; }
+    .submit {
+      width: 100%; min-height: 48px; margin-top: 21px; border: 0; border-radius: 11px;
+      color: white; background: var(--ink); font: inherit; font-size: .9rem; font-weight: 600; cursor: pointer;
+      transition: background .2s, transform .2s;
+    }
+    .submit:hover { transform: translateY(-1px); background: var(--purple); }
+    .switch { margin: 19px 0 0; color: var(--muted); text-align: center; font-size: .84rem; }
+    .switch a { color: var(--purple); font-weight: 600; }
+    .demo-note { margin: 13px 0 0; color: var(--muted); font-size: .75rem; line-height: 1.55; }
+    [hidden] { display: none !important; }
+    footer { border-top: 1px solid rgba(23,35,56,.08); color: var(--muted); font-size: .78rem; }
+    .footer-row { min-height: 58px; display: flex; align-items: center; justify-content: space-between; gap: 18px; }
+    :focus-visible { outline: 3px solid rgba(216,94,65,.4); outline-offset: 3px; }
+    @media (max-width: 700px) {
+      main { padding: 28px 0; }
+      .auth-layout { grid-template-columns: 1fr; width: min(500px, calc(100% - 32px)); }
+      .welcome { min-height: auto; padding: 28px; }
+      .welcome h1 { font-size: 2.4rem; }
+      .welcome-copy { margin-top: 12px; }
+      .welcome-foot { margin-top: 24px; }
+      .form-side { padding: 30px 28px; }
+    }
+    @media (max-width: 420px) {
+      .container { width: calc(100% - 32px); }
+      .footer-row { min-height: 66px; flex-direction: column; justify-content: center; gap: 5px; padding: 12px 0; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container nav">
+      <a class="brand" href="#" aria-label="MindQuest"><span class="brand-mark">M</span> MindQuest</a>
+      <a class="back-link" href="#auth-form">Go to the form</a>
+    </div>
+  </header>
+
+  <main>
+    <div class="auth-layout">
+      <section class="welcome" aria-label="Welcome to MindQuest">
+        <div>
+          <p class="welcome-kicker">A better kind of study routine</p>
+          <h1 id="welcome-title">Small steps. Stronger results.</h1>
+          <p class="welcome-copy">Choose a subject, take one question at a time, and build the confidence to go further.</p>
+        </div>
+        <p class="welcome-foot">Your learning journey, one question at a time.</p>
+      </section>
+
+      <section class="form-side" aria-labelledby="form-title">
+        <p class="form-kicker">MindQuest account</p>
+        <h2 id="form-title">Create your account</h2>
+        <p class="form-hint" id="form-hint">Join MindQuest to make your study journey your own.</p>
+
+        <form id="auth-form">
+          <div class="fields">
+            <div class="field" id="name-field">
+              <label for="name">Your name</label>
+              <input id="name" name="name" autocomplete="name" placeholder="e.g. Alex Morgan" required>
+            </div>
+            <div class="field">
+              <label for="email">Email address</label>
+              <input id="email" name="email" type="email" autocomplete="email" placeholder="you@example.com" required>
+            </div>
+            <div class="field">
+              <label for="password">Password</label>
+              <input id="password" name="password" type="password" autocomplete="new-password" minlength="8" placeholder="At least 8 characters" required>
+            </div>
+          </div>
+          <button class="submit" id="submit-label" type="submit">Create account</button>
+          <p class="demo-note">Demo only: this form does not verify or save accounts. Do not enter real passwords or sensitive information.</p>
+        </form>
+
+        <p class="switch" id="switch-copy">Already have an account? <a href="signup.html?mode=login">Log in</a></p>
+      </section>
+    </div>
+  </main>
+
+  <footer>
+    <div class="container footer-row">
+      <span>© 2026 MindQuest Learning. All rights reserved.</span>
+      <span>Education for curious minds.</span>
+    </div>
+  </footer>
+  <script>
+    const form = document.querySelector("#auth-form");
+    const nameField = document.querySelector("#name-field");
+    const password = document.querySelector("#password");
+    const title = document.querySelector("#form-title");
+    const hint = document.querySelector("#form-hint");
+    const submit = document.querySelector("#submit-label");
+    const switchCopy = document.querySelector("#switch-copy");
+    const loginMode = new URLSearchParams(location.search).get("mode") === "login";
+
+    if (loginMode) {
+      nameField.hidden = true;
+      nameField.querySelector("input").required = false;
+      password.autocomplete = "current-password";
+      title.textContent = "Welcome back";
+      hint.textContent = "Log in to continue your learning journey.";
+      submit.textContent = "Log in";
+      password.placeholder = "Enter your password";
+      switchCopy.innerHTML = 'New to MindQuest? <a href="signup.html">Create an account</a>';
+    }
+
+    form.addEventListener("submit", (event) => {
+      event.preventDefault();
+      const email = form.elements.namedItem("email").value.trim();
+      const name = loginMode
+        ? email.split("@")[0]
+        : form.elements.namedItem("name").value.trim();
+
+      sessionStorage.setItem("mindquest-session", "demo");
+      sessionStorage.setItem("mindquest-name", name);
+      location.replace("cbt.html");
+    });
+  </script>
+</body>
+</html>
